@@ -1,0 +1,137 @@
+
+
+/* Animation */
+
+@keyframes fadeInUp {
+    from {
+        transform: translate3d(0, 40px, 0);
+        opacity: 0;
+    }
+
+    to {
+        transform: translate3d(0, 0, 0);
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes fadeInUp {
+    from {
+        transform: translate3d(0, 40px, 0);
+        opacity: 0;
+    }
+
+    to {
+        transform: translate3d(0, 0, 0);
+        opacity: 1;
+    }
+}
+
+.animated {
+    animation-duration: 1s;
+    animation-fill-mode: both;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+}
+
+.animatedFadeInUp {
+    opacity: 0;
+}
+
+.fadeInUp {
+    opacity: 0;
+    animation-name: fadeInUp;
+    -webkit-animation-name: fadeInUp;
+}
+
+.visible {
+    opacity: 1; /* Ensure the element is visible */
+}
+
+.hidden {
+    opacity: 0; /* Ensure the element is hidden */
+}
+
+
+.textParallex {
+ 
+    position: relative;
+  }
+  
+
+  /* .progress {
+    position: fixed;
+    left: 50%;
+    right: 0;
+    height: 5px;
+    background: var(--accent);
+    bottom: 100px;
+  } */
+  
+  .Text-parallax-main {
+    overflow: hidden;
+    letter-spacing: -2px;
+    line-height: 0.8;
+    margin: 0;
+    white-space: nowrap;
+    display: flex;
+    flex-wrap: nowrap;
+  }
+  
+  .Text-parallax-main .scroller {
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 64px;
+    display: flex;
+    white-space: nowrap;
+    display: flex;
+    flex-wrap: nowrap;
+  }
+  
+  .Text-parallax-main span {
+    display: block;
+    margin-right: 30px;
+  }
+  
+
+  
+.parallex-image {
+    width: 80%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    scroll-snap-align: center;
+    perspective: 500px;
+  }
+  
+  .parallex-image > .parallex-image-div {
+    /* width: 400px;     */
+    /* height: 400px; */
+    position: relative;
+    max-height: 90vh;
+    margin: 20px;
+    background: var(--white);
+    overflow: hidden;
+  }
+  
+ .parallex-image > h2{
+    
+ }
+  .parallex-image-grid{
+    position: relative;
+  }
+  .parallex-image-grid-header{
+    position: relative;
+  }
+  .progress {
+    position: fixed;
+    z-index: 1;
+    /* top: 50%; */
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: var(--accent);
+    top: 50px;
+  }
+  
