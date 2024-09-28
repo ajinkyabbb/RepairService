@@ -63,15 +63,15 @@ function Image({ service }) {
 
   return (
     <section className="parallex-image">
-      <div className="parallex-image-div" ref={ref}>
+      <div className="parallex-image-div h-[600px] w-[600px] " ref={ref}>
         <img
-          style={{ objectFit: 'cover', width: '100%', height: '100%' }}
+          style={{ objectFit: 'contain', width: '100%', height: '100%' }}
           src={service.image}
           alt="A London skyscraper"
           className="cover"
         />
       </div>
-      <motion.div className="absolute sm:relative" style={{ y }}>
+      <motion.div className="absolute sm:relative w-[700px]" style={{ y }}>
         <h2 style={{ fontSize: 40 }}>{service.title}</h2>
         <h2 style={{ fontSize: 20 }}>{service.description}</h2>
       </motion.div>
