@@ -8,6 +8,7 @@ import Services from "./pages/Services";
 import ParallaxText from "./components/ParallaxText";
 import WhyChooseUs from "./pages/WhyChooseUs";
 import ScrollingSections from "./pages/ScrollingSections";
+import AnimationSection from "./pages/AnimationSection";
 function App() {
   const [count, setCount] = useState(0);
 
@@ -21,6 +22,7 @@ function App() {
       </section>
       <Services />
       <WhyChooseUs/>  
+      <AnimationSection />
       {/* <ScrollingSections /> */}
     </>
   );

@@ -5,105 +5,120 @@ import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { Step, StepConnector, stepConnectorClasses, StepLabel, Stepper, styled } from "@mui/material";
-import SettingsIcon from '@mui/icons-material/Settings';
-import GroupAddIcon from '@mui/icons-material/GroupAdd';
-import VideoLabelIcon from '@mui/icons-material/VideoLabel';
+import {
+  Grid,
+  Step,
+  StepConnector,
+  stepConnectorClasses,
+  StepLabel,
+  Stepper,
+  styled,
+} from "@mui/material";
 import ScheduleIcon from "../assets/images/schedule.jpg";
 import PickupIcon from "../assets/images/Pickup.png";
 import DeliveryIcon from "../assets/images/Delivery.jpg";
-import { Schedule } from "@mui/icons-material";
-
+import SchedulePickupForm from "./SchedulePickupForm";
 const style = {
   position: "absolute",
   top: "50%",
   left: "50%",
+  borderRadius: "5px",
   transform: "translate(-50%, -50%)",
-  width: '90%', // Responsive width
-  maxWidth: 600, // Maximum width for larger screens
-  minWidth: 300, // Minimum width for smaller screens
+  width: "90%",
+  maxWidth: 800,
+  minWidth: 300,
   bgcolor: "background.paper",
-  border: "2px solid #000",
   boxShadow: 24,
   p: 4,
+  maxHeight: "90vh", // Ensure modal height is responsive
+  display: "flex",
+  flexDirection: "column",
+  overflow: "hidden",
 };
 
 const ColorlibConnector = styled(StepConnector)(({ theme }) => ({
-    [`&.${stepConnectorClasses.alternativeLabel}`]: {
-      top: 56,
+  [`&.${stepConnectorClasses.alternativeLabel}`]: {
+    top: 56,
+  },
+  [`&.${stepConnectorClasses.active}`]: {
+    [`& .${stepConnectorClasses.line}`]: {
+      backgroundImage:
+        "linear-gradient( 95deg,rgb(242,113,33) 0%,rgb(233,64,87) 50%,rgb(138,35,135) 100%)",
     },
-    [`&.${stepConnectorClasses.active}`]: {
-      [`& .${stepConnectorClasses.line}`]: {
-        backgroundImage:
-          'linear-gradient( 95deg,rgb(242,113,33) 0%,rgb(233,64,87) 50%,rgb(138,35,135) 100%)',
-      },
+  },
+  [`&.${stepConnectorClasses.completed}`]: {
+    [`& .${stepConnectorClasses.line}`]: {
+      backgroundImage:
+        "linear-gradient( 95deg,rgb(242,113,33) 0%,rgb(233,64,87) 50%,rgb(138,35,135) 100%)",
     },
-    [`&.${stepConnectorClasses.completed}`]: {
-      [`& .${stepConnectorClasses.line}`]: {
-        backgroundImage:
-          'linear-gradient( 95deg,rgb(242,113,33) 0%,rgb(233,64,87) 50%,rgb(138,35,135) 100%)',
-      },
-    },
-        [`& .${stepConnectorClasses.line}`]: {
-      height: 3,
-      border: 0,
-      backgroundColor: '#eaeaf0',
-      borderRadius: 1,
-      ...theme.applyStyles('dark', {
-        backgroundColor: theme.palette.grey[800],
-      }),
-    },
-  }));
-  const steps = ['Step1', 'Create an ad group', 'Create an ad'];
-  
-  const ColorlibStepIconRoot = styled('div')(({ theme }) => ({
-    // backgroundColor: '#ccc',
-    zIndex: 1,
-    color: '#fff',
-    width: 100,
-    height: 100,
-    display: 'flex',
-    borderRadius: '50%',
-    justifyContent: 'center',
-    alignItems: 'center',
-    ...theme.applyStyles('dark', {
-      backgroundColor: theme.palette.grey[700],
+  },
+  [`& .${stepConnectorClasses.line}`]: {
+    height: 3,
+    border: 0,
+    backgroundColor: "#eaeaf0",
+    borderRadius: 1,
+    ...theme.applyStyles("dark", {
+      backgroundColor: theme.palette.grey[800],
     }),
-    variants: [
-      // {
-      //   props: ({ ownerState }) => ownerState.active,
-      //   style: {
-      //     backgroundImage:
-      //       'linear-gradient( 136deg, rgb(242,113,33) 0%, rgb(233,64,87) 50%, rgb(138,35,135) 100%)',
-      //     boxShadow: '0 4px 10px 0 rgba(0,0,0,.25)',
-      //   },
-      // },
-      // {
-      //   props: ({ ownerState }) => ownerState.completed,
-      //   style: {
-      //     backgroundImage:
-      //       'linear-gradient( 136deg, rgb(242,113,33) 0%, rgb(233,64,87) 50%, rgb(138,35,135) 100%)',
-      //   },
-      // },
-    ],
-  }));
-  
-  export default function ScheduleModal() {
+  },
+}));
+const steps = [
+  "Step 1 - You Schedule Pickup",
+  "Step 2 - We Pickup  device for Repair",
+  "Step 3 - You Track Delivery",
+];
+
+const ColorlibStepIconRoot = styled("div")(({ theme }) => ({
+  // backgroundColor: '#ccc',
+  zIndex: 1,
+  color: "#fff",
+  width: 100,
+  height: 100,
+  display: "flex",
+  borderRadius: "50%",
+  justifyContent: "center",
+  alignItems: "center",
+  ...theme.applyStyles("dark", {
+    backgroundColor: theme.palette.grey[700],
+  }),
+  variants: [
+    // {
+    //   props: ({ ownerState }) => ownerState.active,
+    //   style: {
+    //     backgroundImage:
+    //       'linear-gradient( 136deg, rgb(242,113,33) 0%, rgb(233,64,87) 50%, rgb(138,35,135) 100%)',
+    //     boxShadow: '0 4px 10px 0 rgba(0,0,0,.25)',
+    //   },
+    // },
+    // {
+    //   props: ({ ownerState }) => ownerState.completed,
+    //   style: {
+    //     backgroundImage:
+    //       'linear-gradient( 136deg, rgb(242,113,33) 0%, rgb(233,64,87) 50%, rgb(138,35,135) 100%)',
+    //   },
+    // },
+  ],
+}));
+
+export default function ScheduleModal() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   function ColorlibStepIcon(props) {
     const { active, completed, className } = props;
-  
+
     const icons = {
       1: <img src={ScheduleIcon} alt={"schedule"} />,
       2: <img src={PickupIcon} alt={"schedule"} />,
       3: <img src={DeliveryIcon} alt={"schedule"} />,
     };
-  
+
     return (
-      <ColorlibStepIconRoot ownerState={{ completed, active }} className={className}>
+      <ColorlibStepIconRoot
+        ownerState={{ completed, active }}
+        className={className}
+      >
         {icons[String(props.icon)]}
       </ColorlibStepIconRoot>
     );
@@ -152,12 +167,35 @@ const ColorlibConnector = styled(StepConnector)(({ theme }) => ({
                 </Step>
               ))}
             </Stepper>
-            <Typography id="transition-modal-title" variant="h6" component="h2">
-              Text in a modal
-            </Typography>
-            <Typography id="transition-modal-description" sx={{ mt: 2 }}>
-              Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-            </Typography>
+            <Box
+              sx={{
+                flexGrow: 1,
+                overflowY: "auto", // Enables vertical scrolling
+                mt: 2, // Add margin to separate from stepper
+              }}
+            >
+              <SchedulePickupForm />
+            </Box>
+            <Grid container justifyContent="end" spacing={2} sx={{ mt: 2 }}>
+          <Grid item>
+            <Button
+              variant="contained"
+              color="primary"
+              sx={{ textTransform: "none",backgroundColor:"#94e000" }}
+            >
+              Schedule Pickup
+            </Button>
+          </Grid>
+          <Grid item>
+            <Button
+              variant="contained"
+              color="secondary"
+              sx={{ textTransform: "none",backgroundColor:"#9b9e95" }}
+            >
+              Exit
+            </Button>
+          </Grid>
+        </Grid> 
           </Box>
         </Fade>
       </Modal>

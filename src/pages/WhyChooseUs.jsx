@@ -92,11 +92,11 @@ export default function WhyChooseUs() {
         <Grid item>
             <h1 className="text-[50px] font-bold mt-10"> Why choose Us</h1>
         </Grid>
-        <Grid item sx={{display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center"}}>
+        {/* <Grid item sx={{display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center"}}> */}
           {services.map((service, index) => (
             <Image key={index} service={service} index={index} />
           ))}
-        </Grid>
+        {/* </Grid> */}
       </Grid>
     </>
   );
