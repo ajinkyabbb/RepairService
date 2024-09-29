@@ -22,8 +22,9 @@ function App() {
       </section>
       <Services />
       <WhyChooseUs/>  
-      <AnimationSection />
+      {/* <AnimationSection /> */}
       {/* <ScrollingSections /> */}
+    
     </>
   );
 }
