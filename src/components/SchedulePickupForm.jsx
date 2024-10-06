@@ -35,9 +35,7 @@ const SchedulePickupForm = () => {
 
   return (
     <div style={{ padding: "20px" }}>
-      <Typography variant="h5" align="center" gutterBottom>
-        Our Techs are fully vaccinated and follow Safe work practices
-      </Typography>
+    
       <Typography align="center" color="primary">
         Click here for Calendar
       </Typography>

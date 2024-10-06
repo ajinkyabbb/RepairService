@@ -1,103 +1,285 @@
-import { useRef } from "react";
-import {
-  motion,
-  useScroll,
-  useSpring,
-  useTransform,
-  MotionValue,
-} from "framer-motion";
-import Patient_Friendly_Advisors from "../assets/images/Patient_Friendly_Advisors.jpg";
-import Service_On_Demand from "../assets/images/Service_On_Demand.jpg";
-import Fastest_Turnaround_Time from "../assets/images/Fastest_Turnaround_Time.jpg";
+import React from "react";
+import { Grid, Typography, Card, CardContent, Box } from "@mui/material";
+import { AiOutlineForm } from "react-icons/ai";
+import { MdVerifiedUser, MdOutlineLocationOn } from "react-icons/md";
+import { motion } from "framer-motion"; // Framer Motion for advanced animations
+import original_parts from "../assets/images/Engineer.png";
 import Skilled_Certified_Technicians from "../assets/images/Skilled_Certified_Technicians.jpg";
+import picup from "../assets/images/Pickup.png";
+import Delivery from "../assets/images/Delivery.jpg";
 import Quality_Parts_Warranty from "../assets/images/Quality_Parts_Warranty.jpg";
-import All_Repairs_Under_One_Roof from "../assets/images/All_Repairs_Under_One_Roof.jpg";
-import { Grid } from "@mui/material";
+import Wallet from "../assets/images/Wallet.png";
+import Product_teardown from "../assets/images/Product_teardown.png";
+import Review from "../assets/images/Review.png";
+import Reputation from "../assets/images/Reputation.png";
 
-function useParallax(value = MotionValue, distance) {
-  return useTransform(value, [0, 1], [-distance, distance]);
-}
+// Services data without JSX
 const services = [
   {
-    image: Patient_Friendly_Advisors,
-    title: "Patient, Friendly advisors",
+    title: "Original Apple Parts",
+    icon: "original_parts",
     description:
-      "It’s a little bit like visiting a doctor. Don’t you like it when your doctor has an understanding ear, and explains the ailment to you?",
+      "We use genuine Apple replacement parts for all repairs, ensuring the longevity and quality of your device. Trust us to restore your Apple product with parts that meet Apple's standards.",
   },
   {
-    image: Service_On_Demand,
-    title: "Service on demand, at home",
-    description:
-      "Free pickup & delivery across Bangalore. For simpler repairs we provide on-site, doorstep service. Just book an appointment.",
+    title: "Certified Apple Engineers",
+    icon: "Skilled_Certified_Technicians",
+    description: "Our team consists of M+ Certified engineers and technicians who specialize in Apple device repairs. With years of experience, we guarantee expert handling of your Apple products.",
   },
   {
-    image: Fastest_Turnaround_Time,
-    title: "Fastest turnaround time",
+    title: "Free Pickup Service Across Mumbai",
+    icon: "Delivery",
     description:
-      "Time is money. Fixxo repairs fast, ergo it saves you money only, no? Ok. We are an exclusive Apple service center, MOST parts are usually in ready stock.",
+      "Enjoy the convenience of our free pickup service for all Apple repairs. No matter where you are in Mumbai, we’ll collect your device, repair it, and deliver it back to you, hassle-free.",
   },
   {
-    image: Skilled_Certified_Technicians,
-    title: "Skilled, Certified technicians",
-    description:
-      "All things considered, the quality of service is only as good as the expertise of the repairman. Workmanship matters!",
+    title: "Onsite Apple Repair Services",
+    icon: "picup",
+    description: "We offer onsite repair services for Apple devices. Our technicians will come to your location, providing repair solutions without you having to leave the comfort of your home.",
   },
   {
-    image: Quality_Parts_Warranty,
-    title: "Quality parts, Warranty",
-    description:
-      "At Fixxo, we use only the highest quality spare parts. All repairs carry a min. 90 days warranty. Not just a working device, peace of mind is paramount too!",
+    title: "Best Price Guarantee",
+    icon: "Wallet",
+    description: "We provide competitive pricing on all Apple repairs. If you find a better price from any third-party repair vendor, we’ll match it to ensure you’re getting the best deal.",
   },
   {
-    image: All_Repairs_Under_One_Roof,
-    title: "All repairs under one roof",
+    title: "No Fix, No Charge Policy",
+    icon: "Quality_Parts_Warranty",
+    description: "We stand by our work with a 'No Fix, No Charge' policy. If we can't repair your Apple device, you won’t pay a dime.",
+  },
+  {
+    title: "Trusted by Customers – Read Our Reviews",
+    icon: "Review",
     description:
-      "All Apple devices, all repairs, we are your one-stop shop. We’re probably the only one in town who do L4 chip-level repair on Logic boards, arguably :)",
+      "Our Apple repair service is built on trust and customer satisfaction. See what our happy customers have to say about their experience with us.",
+  },
+  {
+    title: "Instant Apple Repair Service",
+    icon: "Product_teardown",
+    description: "With our omnichannel customer service, you get quick responses to your inquiries. We prioritize fast and efficient Apple repair services to minimize downtime.",
+  },
+  {
+    title: "Excellent Reputation",
+    icon: "Reputation",
+    description: "Our excellent reputation is built on meticulous attention to detail and a long-standing commitment to providing loyal, high-quality service to all of our customers.",
   },
 ];
 
-function Image({ service }) {
-  const ref = useRef(null);
-  const { scrollYProgress } = useScroll({ target: ref });
-  const y = useParallax(scrollYProgress, 300);
-
-  return (
-    <section className="parallex-image">
-      <div className="parallex-image-div h-[600px] w-[600px] " ref={ref}>
+// Helper function to render icons
+const renderIcon = (iconName) => {
+  switch (iconName) {
+    case "AiOutlineForm":
+      return <AiOutlineForm size={35} />;
+    case "MdOutlineLocationOn":
+      return <MdOutlineLocationOn size={35} />;
+    case "original_parts":
+      return (
         <img
-          style={{ objectFit: 'contain', width: '100%', height: '100%' }}
-          src={service.image}
-          alt="A London skyscraper"
-          className="cover"
+          src={original_parts}
+          alt="Original Parts"
+          style={{ maxHeight: "100%", objectFit: "cover" }}
         />
-      </div>
-      <motion.div className="absolute sm:relative w-[700px]" style={{ y }}>
-        <h2 style={{ fontSize: 40 }}>{service.title}</h2>
-        <h2 style={{ fontSize: 20 }}>{service.description}</h2>
-      </motion.div>
-    </section>
-  );
-}
-export default function WhyChooseUs() {
-  const { scrollYProgress } = useScroll();
-  const scaleX = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001,
-  });
+      );
+    case "Skilled_Certified_Technicians":
+      return (
+        <img
+          src={Skilled_Certified_Technicians}
+          alt="Certified Engineers"
+          style={{ maxHeight: "100%", objectFit: "cover" }}
+        />
+      );
+    case "Delivery":
+      return (
+        <img
+          src={Delivery}
+          alt="Free Pickup"
+          style={{ maxHeight: "100%", objectFit: "cover" }}
+        />
+      );
+    case "picup":
+      return (
+        <img
+          src={picup}
+          alt="Onsite Repair"
+          style={{ maxHeight: "100%", objectFit: "cover" }}
+        />
+      );
+    case "Wallet":
+      return (
+        <img
+          src={Wallet}
+          alt="Price Guarantee"
+          style={{ maxHeight: "100%", objectFit: "cover" }}
+        />
+      );
+    case "Quality_Parts_Warranty":
+      return (
+        <img
+          src={Quality_Parts_Warranty}
+          alt="No Fix, No Charge"
+          style={{ maxHeight: "100%", objectFit: "cover" }}
+        />
+      );
+    case "Product_teardown":
+      return (
+        <img
+          src={Product_teardown}
+          alt="Instant Service"
+          style={{ maxHeight: "100%", objectFit: "cover" }}
+        />
+      );
+      case "Review":
+      return (
+        <img
+          src={Review}
+          alt="Review"
+          style={{ maxHeight: "100%", objectFit: "cover" }}
+        />
+      );
+      case "Reputation":
+      return (
+        <img
+          src={Reputation}
+          alt="Reputation"
+          style={{ maxHeight: "100%", objectFit: "cover" }}
+        />
+      );
+    default:
+      return null;
+  }
+};
 
+const ServicesGrid = () => {
   return (
-    <>
-      <Grid container  justifyContent="center" alignItems="center">
-        <Grid item>
-            <h1 className="text-[50px] font-bold mt-10"> Why choose Us</h1>
-        </Grid>
-        {/* <Grid item sx={{display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center"}}> */}
-          {services.map((service, index) => (
-            <Image key={index} service={service} index={index} />
-          ))}
-        {/* </Grid> */}
+    <Box
+      sx={{
+        // maxWidth: "1440px",
+        margin: "0 auto",
+        padding: 4,
+        background: "#fff",
+        // backdropFilter: "blur(20px)",
+        // borderRadius: "24px",
+        // boxShadow: "0px 10px 40px rgba(0, 0, 0, 0.2)",
+        overflow: "hidden",
+        position: "relative",
+      }}
+    >
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1.5 }}
+      >
+        <Typography
+          variant="h4"
+          sx={{
+            textAlign: "center",
+            fontWeight: "bold",
+            letterSpacing: "0.1em",
+            marginBottom: 3,
+            fontSize: "3rem",
+            color: "#222",
+            textTransform: "uppercase",
+            textShadow: "3px 3px 15px rgba(0, 0, 0, 0.2)",
+          }}
+        >
+          Why Choose Us
+        </Typography>
+        <Typography
+          component="h2"
+          sx={{
+            textAlign: "center",
+            fontStyle: "italic",
+            color: "#707070",
+            marginBottom: 4,
+            letterSpacing: "0.05em",
+            fontSize: "1.2rem",
+          }}
+        >
+          "Choose us for fast, reliable, and certified Apple product repairs in
+          Mumbai, backed by highly trained engineers."
+        </Typography>
+      </motion.div>
+
+      {/* Service Cards */}
+      <Grid container spacing={4} justifyContent="start">
+        {services.map((service, index) => (
+          <Grid item xs={12} sm={6} md={4} key={index}>
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              initial={{ opacity: 0, translateY: 50 }}
+              animate={{ opacity: 1, translateY: 0 }}
+              transition={{ duration: 0.8, delay: index * 0.1 }}
+            >
+              <Card
+                sx={{
+                  minHeight: "320px",
+                  display: "flex",
+                  flexDirection: "column",
+                  p: 2,
+                  borderRadius: "20px",
+                  boxShadow: "0 10px 40px rgba(0, 0, 0, 0.2)",
+                  position: "relative",
+                  transition: "all 0.4s ease-in-out",
+                  "&:hover": {
+                    transform: "translateY(-10px)",
+                    boxShadow: "0 20px 40px rgba(0, 0, 0, 0.4)",
+                  },
+                }}
+              >
+                <CardContent>
+                  {/* Icon */}
+                  <Box
+                    sx={{
+                      position: "relative",
+                      overflow: "hidden",
+                      height: "100px",
+                      mb: 2,
+                    }}
+                  >
+                    <Box
+                      sx={{
+                        height: "100px",
+                        width: "100px",
+                        borderRadius: "50%",
+                        backgroundColor: "rgba(255,255,255,0.7)",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      {renderIcon(service.icon)}
+                    </Box>
+                  </Box>
+
+                  <Typography
+                    variant="h6"
+                    sx={{
+                      fontWeight: "600",
+                      fontSize: "clamp(1rem, 1.2vw, 1.3rem)",
+                      color: "#333",
+                      textTransform: "uppercase",
+                      mb: 1,
+                    }}
+                  >
+                     <span className="text-[#94e000]">{service.title.split(" ")[0]}</span> {/* First word */}
+                     {" " + service.title.split(" ").slice(1).join(" ")} {/* Remaining words */}
+                  </Typography>
+
+                  <Typography
+                    variant="body2"
+                    sx={{ color: "#707070", fontSize: "0.9rem" }}
+                  >
+                    {service.description}
+                  </Typography>
+                </CardContent>
+              </Card>
+            </motion.div>
+          </Grid>
+        ))}
       </Grid>
-    </>
+    </Box>
   );
-}
+};
+
+export default ServicesGrid;
