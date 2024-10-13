@@ -16,12 +16,11 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
 import { appleProducts } from "./appleProducts"; // Ensure this path is correct
-import axios from "axios"; // Import axios for API calls
 
 const SchedulePickupForm = ({ handleExit }) => {
   // State for form values
   const [formValues, setFormValues] = React.useState({
-    date: null,
+    date: null, // Initialize as null for DatePicker
     time: "",
     device: "",
     model: "",
@@ -33,7 +32,7 @@ const SchedulePickupForm = ({ handleExit }) => {
     addr1: "",
     addr2: "",
     pin: "",
-    additionalIssue: "",
+    additionalIssue: "", // New field for additional issue description
   });
 
   // State for available models and issues based on selected device
@@ -123,7 +122,9 @@ const SchedulePickupForm = ({ handleExit }) => {
       case "email":
         if (!value) {
           error = "Email is required.";
-        } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value)) {
+        } else if (
+          !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value)
+        ) {
           error = "Invalid email address.";
         }
         break;
@@ -203,30 +204,20 @@ const SchedulePickupForm = ({ handleExit }) => {
   };
 
   // Handle form submission
-  const handleSubmit = async (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
 
     // Validate the form
     const isValid = validateForm();
 
     if (isValid) {
-      try {
-        // Make an API call to submit the form data
-        const response = await axios.post("http://localhost:5001/api/pickup", formValues);
-        
-        // Log the response for debugging
-        console.log("Response from server:", response.data);
+      // Handle form submission logic here
+      console.log("Form Values:", formValues);
+      // You can add form validation and API calls here
 
-        // Optionally, reset the form or provide user feedback
-        handleExit();
-      } catch (error) {
-        console.error("Error submitting form:", error);
-        // Optionally, handle the error in the UI
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          server: "There was an error submitting the form. Please try again.",
-        }));
-      }
+      // Optionally, reset the form or provide user feedback
+      // For example, close the modal after successful submission
+      handleExit();
     } else {
       // Optionally, scroll to the first error
       const firstErrorField = Object.keys(errors).find(
@@ -249,8 +240,15 @@ const SchedulePickupForm = ({ handleExit }) => {
       </Typography>
       <form noValidate autoComplete="off" onSubmit={handleSubmit}>
         <Grid container spacing={2}>
+          {/* Single Column Layout with Responsive Two Columns on md and above */}
           <Grid item xs={12} md={6}>
-            <FormControl fullWidth margin="normal" error={Boolean(errors.date)}>
+            {/* Date Picker */}
+            <FormControl
+              fullWidth
+              margin="normal"
+              error={Boolean(errors.date)}
+              required
+            >
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
                   label="Select Pickup Date"
@@ -268,6 +266,7 @@ const SchedulePickupForm = ({ handleExit }) => {
           </Grid>
 
           <Grid item xs={12} md={6}>
+            {/* Pickup Time Select */}
             <FormControl
               fullWidth
               margin="normal"
@@ -288,11 +287,106 @@ const SchedulePickupForm = ({ handleExit }) => {
                   </MenuItem>
                 ))}
               </Select>
-              {errors.time && <FormHelperText>{errors.time}</FormHelperText>}
+              {errors.time && (
+                <FormHelperText>{errors.time}</FormHelperText>
+              )}
             </FormControl>
           </Grid>
 
           <Grid item xs={12} md={6}>
+            {/* Email Field */}
+            <FormControl
+              fullWidth
+              margin="normal"
+              error={Boolean(errors.email)}
+              required
+            >
+              <TextField
+                name="email"
+                label="Email"
+                value={formValues.email}
+                onChange={handleChange}
+                fullWidth
+                required
+                type="email"
+              />
+              {errors.email && (
+                <FormHelperText>{errors.email}</FormHelperText>
+              )}
+            </FormControl>
+          </Grid>
+
+          <Grid item xs={12} md={6}>
+            {/* Mobile Number Field */}
+            <FormControl
+              fullWidth
+              margin="normal"
+              error={Boolean(errors.mobile)}
+              required
+            >
+              <TextField
+                name="mobile"
+                label="Mobile Number"
+                value={formValues.mobile}
+                onChange={handleChange}
+                fullWidth
+                required
+                type="tel"
+                inputProps={{ maxLength: 10 }}
+                placeholder="Enter 10-digit mobile number"
+              />
+              {errors.mobile && (
+                <FormHelperText>{errors.mobile}</FormHelperText>
+              )}
+            </FormControl>
+          </Grid>
+
+          <Grid item xs={12} md={6}>
+            {/* First Name Field */}
+            <FormControl
+              fullWidth
+              margin="normal"
+              error={Boolean(errors.name)}
+              required
+            >
+              <TextField
+                name="name"
+                label="First Name"
+                value={formValues.name}
+                onChange={handleChange}
+                fullWidth
+                required
+              />
+              {errors.name && (
+                <FormHelperText>{errors.name}</FormHelperText>
+              )}
+            </FormControl>
+          </Grid>
+
+          <Grid item xs={12} md={6}>
+            {/* Surname Field */}
+            <FormControl
+              fullWidth
+              margin="normal"
+              error={Boolean(errors.surname)}
+              required
+            >
+              <TextField
+                name="surname"
+                label="Surname"
+                value={formValues.surname}
+                onChange={handleChange}
+                fullWidth
+                required
+              />
+              {errors.surname && (
+                <FormHelperText>{errors.surname}</FormHelperText>
+              )}
+            </FormControl>
+          </Grid>
+
+          <Grid item xs={12} md={6}>
+            {/* Device Select */}
             <FormControl
               fullWidth
               margin="normal"
@@ -305,6 +399,7 @@ const SchedulePickupForm = ({ handleExit }) => {
                 value={formValues.device}
                 onChange={handleChange}
                 label="Device"
+                required
               >
                 <MenuItem value="">Select Device</MenuItem>
                 {Object.keys(appleProducts).map((device) => (
@@ -313,16 +408,20 @@ const SchedulePickupForm = ({ handleExit }) => {
                   </MenuItem>
                 ))}
               </Select>
-              {errors.device && <FormHelperText>{errors.device}</FormHelperText>}
+              {errors.device && (
+                <FormHelperText>{errors.device}</FormHelperText>
+              )}
             </FormControl>
           </Grid>
 
           <Grid item xs={12} md={6}>
+            {/* Model Select */}
             <FormControl
               fullWidth
               margin="normal"
               error={Boolean(errors.model)}
               required
+              disabled={!formValues.device}
             >
               <InputLabel>Model</InputLabel>
               <Select
@@ -330,6 +429,7 @@ const SchedulePickupForm = ({ handleExit }) => {
                 value={formValues.model}
                 onChange={handleChange}
                 label="Model"
+                required
               >
                 <MenuItem value="">Select Model</MenuItem>
                 {availableModels.map((model) => (
@@ -338,16 +438,20 @@ const SchedulePickupForm = ({ handleExit }) => {
                   </MenuItem>
                 ))}
               </Select>
-              {errors.model && <FormHelperText>{errors.model}</FormHelperText>}
+              {errors.model && (
+                <FormHelperText>{errors.model}</FormHelperText>
+              )}
             </FormControl>
           </Grid>
 
           <Grid item xs={12} md={6}>
+            {/* Issue Select */}
             <FormControl
               fullWidth
               margin="normal"
               error={Boolean(errors.issue1)}
               required
+              disabled={!formValues.device}
             >
               <InputLabel>Issue</InputLabel>
               <Select
@@ -355,6 +459,7 @@ const SchedulePickupForm = ({ handleExit }) => {
                 value={formValues.issue1}
                 onChange={handleChange}
                 label="Issue"
+                required
               >
                 <MenuItem value="">Select Issue</MenuItem>
                 {availableIssues.map((issue) => (
@@ -363,130 +468,125 @@ const SchedulePickupForm = ({ handleExit }) => {
                   </MenuItem>
                 ))}
               </Select>
-              {errors.issue1 && <FormHelperText>{errors.issue1}</FormHelperText>}
+              {errors.issue1 && (
+                <FormHelperText>{errors.issue1}</FormHelperText>
+              )}
             </FormControl>
           </Grid>
 
           <Grid item xs={12} md={6}>
-            <TextField
-              name="name"
-              label="First Name"
-              variant="outlined"
+            {/* PIN Code Select */}
+            <FormControl
               fullWidth
-              value={formValues.name}
-              onChange={handleChange}
-              error={Boolean(errors.name)}
-              helperText={errors.name}
-              required
-            />
-          </Grid>
-
-          <Grid item xs={12} md={6}>
-            <TextField
-              name="surname"
-              label="Surname"
-              variant="outlined"
-              fullWidth
-              value={formValues.surname}
-              onChange={handleChange}
-              error={Boolean(errors.surname)}
-              helperText={errors.surname}
-              required
-            />
-          </Grid>
-
-          <Grid item xs={12} md={6}>
-            <TextField
-              name="mobile"
-              label="Mobile Number"
-              variant="outlined"
-              fullWidth
-              value={formValues.mobile}
-              onChange={handleChange}
-              error={Boolean(errors.mobile)}
-              helperText={errors.mobile}
-              required
-            />
-          </Grid>
-
-          <Grid item xs={12} md={6}>
-            <TextField
-              name="email"
-              label="Email Address"
-              variant="outlined"
-              fullWidth
-              value={formValues.email}
-              onChange={handleChange}
-              error={Boolean(errors.email)}
-              helperText={errors.email}
-              required
-            />
-          </Grid>
-
-          <Grid item xs={12}>
-            <TextField
-              name="addr1"
-              label="Address Line 1"
-              variant="outlined"
-              fullWidth
-              value={formValues.addr1}
-              onChange={handleChange}
-              error={Boolean(errors.addr1)}
-              helperText={errors.addr1}
-              required
-            />
-          </Grid>
-
-          <Grid item xs={12}>
-            <TextField
-              name="addr2"
-              label="Address Line 2 (Optional)"
-              variant="outlined"
-              fullWidth
-              value={formValues.addr2}
-              onChange={handleChange}
-            />
-          </Grid>
-
-          <Grid item xs={12} md={6}>
-            <TextField
-              name="pin"
-              label="PIN Code"
-              variant="outlined"
-              fullWidth
-              value={formValues.pin}
-              onChange={handleChange}
+              margin="normal"
               error={Boolean(errors.pin)}
-              helperText={errors.pin}
               required
-            />
+            >
+              <InputLabel>PIN Code</InputLabel>
+              <Select
+                name="pin"
+                value={formValues.pin}
+                onChange={handleChange}
+                label="PIN Code"
+                required
+              >
+                <MenuItem value="">Select PIN Code</MenuItem>
+                {/* Example PIN codes; replace with actual codes as needed */}
+                <MenuItem value="100001">100001</MenuItem>
+                <MenuItem value="100002">100002</MenuItem>
+                <MenuItem value="100003">100003</MenuItem>
+                <MenuItem value="100004">100004</MenuItem>
+                <MenuItem value="100005">100005</MenuItem>
+                {/* Add more PIN codes as needed */}
+              </Select>
+              {errors.pin && <FormHelperText>{errors.pin}</FormHelperText>}
+            </FormControl>
           </Grid>
 
           <Grid item xs={12}>
-            <TextField
-              name="additionalIssue"
-              label="Additional Issues (Optional)"
-              variant="outlined"
+            {/* Address Line 1 */}
+            <FormControl
               fullWidth
-              value={formValues.additionalIssue}
-              onChange={handleChange}
-            />
+              margin="normal"
+              error={Boolean(errors.addr1)}
+              required
+            >
+              <TextField
+                name="addr1"
+                label="Address Line 1"
+                value={formValues.addr1}
+                onChange={handleChange}
+                fullWidth
+                required
+              />
+              {errors.addr1 && (
+                <FormHelperText>{errors.addr1}</FormHelperText>
+              )}
+            </FormControl>
           </Grid>
 
           <Grid item xs={12}>
+            {/* Address Line 2 */}
+            <FormControl fullWidth margin="normal">
+              <TextField
+                name="addr2"
+                label="Address Line 2"
+                value={formValues.addr2}
+                onChange={handleChange}
+                fullWidth
+              />
+            </FormControl>
+          </Grid>
+
+          <Grid item xs={12}>
+            {/* Additional Issue Description */}
+            <FormControl fullWidth margin="normal">
+              <TextField
+                name="additionalIssue"
+                label="Additional Issue Description"
+                value={formValues.additionalIssue}
+                onChange={handleChange}
+                fullWidth
+                multiline
+                rows={4}
+                placeholder="Describe any additional issues or details here..."
+              />
+            </FormControl>
+          </Grid>
+        </Grid>
+
+        {/* Buttons */}
+        <Grid container justifyContent="flex-end" spacing={2} sx={{ mt: 2 }}>
+          <Grid item>
             <Button
               type="submit"
               variant="contained"
-              color="primary"
-              fullWidth
+              sx={{
+                textTransform: "none",
+                backgroundColor: "#94e000", // Primary button color
+                "&:hover": {
+                  backgroundColor: "#7dbd00",
+                },
+              }}
             >
-              Schedule Pickup
+              Confirm Pickup Date
             </Button>
-            {errors.server && (
-              <Typography color="error" variant="body2" align="center">
-                {errors.server}
-              </Typography>
-            )}
+          </Grid>
+          <Grid item>
+            <Button
+              variant="contained"
+              color="secondary"
+              sx={{
+                textTransform: "none",
+                backgroundColor: "#9b9e95", // Exit button color
+                "&:hover": {
+                  backgroundColor: "#7f8282",
+                },
+              }}
+              onClick={handleExit}
+            >
+              Exit
+            </Button>
           </Grid>
         </Grid>
       </form>
