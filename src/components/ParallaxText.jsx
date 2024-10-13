@@ -22,7 +22,7 @@ export default function ParallaxText({ children, baseVelocity = 1 }) {
   });
 
   // Transform scroll velocity into a velocity factor, scaled by baseVelocity
-  const velocityFactor = useTransform(smoothVelocity, [0, 1000], [0, 5], {
+  const velocityFactor = useTransform(smoothVelocity, [0, 300], [0, 5], {
     clamp: false,
   });
 
@@ -31,7 +31,7 @@ export default function ParallaxText({ children, baseVelocity = 1 }) {
 
   useAnimationFrame((t, delta) => {
     // Calculate movement amount based purely on scroll velocity and baseVelocity
-    const moveBy = velocityFactor.get() * (delta / 300) * baseVelocity;
+    const moveBy = velocityFactor.get() * (delta / 3500) * baseVelocity;
 
     // Move the baseX position based on the scroll velocity and direction
     baseX.set(baseX.get() + moveBy);

@@ -45,8 +45,8 @@ function App() {
       {/* </div> */}
 
       <div className="textParallex">
-        <ParallaxText baseVelocity={-2}>
-          Chat with Us! Reach out on{" "}
+        <ParallaxText baseVelocity={-1}>
+          Chat with Us!{" "}
           <img
             style={{
               height: "clamp(1.5rem, 2vw, 3rem)",
@@ -59,8 +59,8 @@ function App() {
           />{" "}
           : +91 12345 67890
         </ParallaxText>
-        <ParallaxText baseVelocity={2}>
-          Need Assistance? We’re Here for You!{" "}
+        <ParallaxText baseVelocity={1}>
+          Need Assistance?{" "}
           <img
             style={{
               height: "clamp(1.5rem, 2vw, 3rem)",

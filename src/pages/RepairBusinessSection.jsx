@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Button, Typography, Box } from '@mui/material';
 import { styled } from '@mui/system';
-import { motion, useViewportScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import RepairBussiness from "../assets/images/RepairBussiness.webp"; // Replace with actual image path
+// If using React Router, uncomment the next line
+// import { Link as RouterLink } from 'react-router-dom';
 
-// Overlay styling for the background image
+// Styled Overlay for the background image
 const Overlay = styled(Box)(({ theme }) => ({
   position: 'absolute',
   top: 0,
@@ -15,47 +17,68 @@ const Overlay = styled(Box)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
+  zIndex: 2, // Ensure it's above the background
 }));
 
-const AppleRepairSection = () => {
-  // Create scroll-based parallax effects
-  const { scrollY } = useViewportScroll();
+// Motion-enhanced Box for the background
+const MotionBackground = motion(Box);
 
-  // Apply parallax to the heading and description
-  const y1 = useTransform(scrollY, [0, 300], [0, -50]);
-  const y2 = useTransform(scrollY, [0, 300], [0, -30]);
+const AppleRepairSection = () => {
+  const sectionRef = useRef(null);
+
+  // Use the updated useScroll hook with a target ref
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"], // Defines when the animation starts and ends
+  });
+
+  // Define scroll range and corresponding translation for the background
+  // Increased the output range to make the background move faster
+  const backgroundY = useTransform(scrollYProgress, [0, 1], [0, 500]); // Moves down faster as you scroll
+
+  // Parallax effects for content
+  const y1 = useTransform(scrollYProgress, [0, 1], [0, -100]); // Moves up faster as you scroll
+  const y2 = useTransform(scrollYProgress, [0, 1], [0, -60]);
 
   return (
     <Box
       component="div"
+      ref={sectionRef}
       sx={{
-        pt:5,
-        // position: 'relative',
-        height: '100vh', // Full viewport height for stickiness
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
+        position: 'relative',
+        height: {xs:"80vh",md:"100vh"}, // Increased height to allow scrolling
         overflow: 'hidden',
-        backgroundImage: `url(${RepairBussiness})`, // Set the image as the background
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        position: 'sticky',
-        top: 0, // Sticky positioning: this makes the background stick at the top
-        zIndex: -1, // Ensure it's behind the content
       }}
     >
-      {/* Dark overlay for better contrast */}
+      {/* Background Layer */}
+      <MotionBackground
+        sx={{
+          position: 'absolute',
+          top: '-50%', // Start above to accommodate movement
+          left: 0,
+          width: '100%',
+          height: "150%", // Increased height to allow movement without showing empty space
+          backgroundImage: `url(${RepairBussiness})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          zIndex: 1, // Behind the overlay
+        }}
+        style={{
+          y: backgroundY, // Apply animated y position
+        }}
+      />
+
+      {/* Dark Overlay */}
       <Overlay>
         <Box
           sx={{
             textAlign: 'center',
-            zIndex: 1,
             maxWidth: '600px',
             padding: '16px',
             paddingTop: '50px',
           }}
         >
-          {/* Parallax animated heading */}
+          {/* Parallax Animated Heading */}
           <motion.div style={{ y: y1 }}>
             <Typography
               variant="h1"
@@ -70,7 +93,7 @@ const AppleRepairSection = () => {
             </Typography>
           </motion.div>
 
-          {/* Parallax animated description */}
+          {/* Parallax Animated Description */}
           <motion.div style={{ y: y2 }}>
             <Typography
               variant="body1"
@@ -114,7 +137,7 @@ const AppleRepairSection = () => {
             </Typography>
           </motion.div>
 
-          {/* Parallax animated button */}
+          {/* Parallax Animated Button */}
           <motion.div style={{ y: y2 }}>
             <Button
               variant="contained"
@@ -126,7 +149,10 @@ const AppleRepairSection = () => {
                 fontWeight: 'bold',
                 '&:hover': { backgroundColor: '#00A800' },
               }}
-              href="/apple-repair-services" // Ensure this links to a relevant internal page
+              href="/apple-repair-services" // Replace with React Router's Link if applicable
+              // If using React Router, use the following props instead:
+              // component={RouterLink}
+              // to="/apple-repair-services"
             >
               Learn More
             </Button>
