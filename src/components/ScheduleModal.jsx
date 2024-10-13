@@ -14,9 +14,9 @@ import {
   Stepper,
   styled,
 } from "@mui/material";
-import ScheduleIcon from "../assets/images/schedule.jpg";
-import PickupIcon from "../assets/images/Pickup.png";
-import DeliveryIcon from "../assets/images/Delivery.jpg";
+import ScheduleIcon from "../assets/images/schedule.webp";
+import PickupIcon from "../assets/images/Pickup.webp";
+import DeliveryIcon from "../assets/images/Delivery.webp";
 import SchedulePickupForm from "./SchedulePickupForm";
 const style = {
   position: "absolute",
@@ -29,7 +29,7 @@ const style = {
   minWidth: 300,
   bgcolor: "background.paper",
   boxShadow: 24,
-  p: 0,
+  p: 2,
   maxHeight: "95vh", // Ensure modal height is responsive
   display: "flex",
   flexDirection: "column",

@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
-import Iphone from "../assets/images/Iphone.jpg";
-import Ipad from "../assets/images/Ipad.jpg";
-import iMac from "../assets/images/iMac.jpg";
-import AppleWatch from "../assets/images/AppleWatch.jpg";
-import MacMini from "../assets/images/Mac-Mini.jpg";
+import Iphone from "../assets/images/Iphone.webp";
+import Ipad from "../assets/images/Ipad.webp";
+import iMac from "../assets/images/iMac.webp";
+import AppleWatch from "../assets/images/AppleWatch.webp";
+import MacMini from "../assets/images/Mac-Mini.webp";
 import {
   Button,
   Card,
@@ -22,16 +22,15 @@ export default function Services() {
     // Initialize AOS with custom settings
     setTimeout(() => {
       AOS.init({
-
+        disable: "mobile",
         duration: 1000, // Duration of animations in ms
-        disable: function() {
-          // Disable for mobile devices (screen width less than 768px)
-          return window.innerWidth < 768;
-        }
-
+        disable: "mobile",
+        // disable: function() {
+        //   // Disable for mobile devices (screen width less than 768px)
+        //   return window.innerWidth < 768;
+        // }
       });
     }, 1000);
-    
   }, []);
 
   const items = [
@@ -72,7 +71,7 @@ export default function Services() {
       <Grid
         container
         direction="row"
-        sx={{  py: 4 }}
+        sx={{ py: 4 }}
         justifyContent="center"
         className="bg-[#f6f6f6]"
         spacing={2}
@@ -81,13 +80,17 @@ export default function Services() {
           <Grid container direction="column">
             <Grid
               item
-              sx={{ width: { sm: 200, md: 250, lg: 350 }, height: "250px" }}
+              sx={{ width: { sm: 230, md: 250, lg: 350 }, height: "250px" }}
               className="flex justify-center"
             >
               <CardContent sx={{ p: 0 }} className="">
                 <Typography
                   variant="h5"
-                  sx={{ fontSize: "20px", color: "#94e000" }}
+                  sx={{
+                    fontSize: "20px",
+                    color: "#94e000",
+                    paddingLeft: { xs: "20px",sm:0 },
+                  }}
                   component="div"
                   className="font-bold"
                 >
@@ -98,8 +101,14 @@ export default function Services() {
                   color="textSecondary"
                   className="mt-2"
                   sx={{
-                    fontSize: { sm: "40px", md: "40px", lg: "50px" },
+                    fontSize: {
+                      xs: "50px",
+                      sm: "40px",
+                      md: "40px",
+                      lg: "50px",
+                    },
                     fontWeight: "bold",
+                    paddingLeft: { xs: "20px",sm:0 },
                   }}
                 >
                   We Make Repair Stress Free
@@ -107,8 +116,19 @@ export default function Services() {
               </CardContent>
             </Grid>
             <Grid item data-aos="fade-up">
-              <Card className="hover-card" sx={{ maxWidth: { sm: 200, md: 250, lg: 350 }, borderRadius: 4 }}>
-                <CardMedia component="img" sx={{ maxHeight: 250 }} image={items[0].img} />
+              <Card
+                className="hover-card"
+                sx={{
+                  maxWidth: { sm: 230, md: 250, lg: 350 },
+                  borderRadius: 4,
+                }}
+              >
+                <CardMedia
+                  loading="lazy"
+                  component="img"
+                  sx={{ maxHeight: 250 }}
+                  image={items[0].img}
+                />
                 <CardContent sx={{ pb: "0 !important", px: 0 }}>
                   <Typography
                     variant="h5"
@@ -148,14 +168,20 @@ export default function Services() {
           >
             {[items[1], items[2]].map((item, i) => (
               <Grid item key={i} xs={6} data-aos="fade-up">
-                <Card className="hover-card"
+                <Card
+                  className="hover-card"
                   sx={{
-                    maxWidth: { sm: 200, md: 250, lg: 350 },
+                    maxWidth: { sm: 230, md: 250, lg: 350 },
                     borderRadius: 4,
                     mt: i === 1 ? 1 : 0,
                   }}
                 >
-                  <CardMedia component="img" sx={{ maxHeight: 250 }} image={item.img} />
+                  <CardMedia
+                    loading="lazy"
+                    component="img"
+                    sx={{ maxHeight: 230 }}
+                    image={item.img}
+                  />
                   <CardContent sx={{ pb: "0 !important", px: 0 }}>
                     <Typography
                       variant="h5"
@@ -196,14 +222,20 @@ export default function Services() {
           >
             {[items[3], items[4]].map((item, i) => (
               <Grid item key={i} xs={6} data-aos="fade-up">
-                <Card className="hover-card"
+                <Card
+                  className="hover-card"
                   sx={{
-                    maxWidth: { sm: 200, md: 250, lg: 350 },
+                    maxWidth: { sm: 230, md: 250, lg: 350 },
                     borderRadius: 4,
                     mt: i === 1 ? 1 : 0,
                   }}
                 >
-                  <CardMedia component="img" sx={{ maxHeight: 250 }} image={item.img} />
+                  <CardMedia
+                    loading="lazy"
+                    component="img"
+                    sx={{ maxHeight: 250 }}
+                    image={item.img}
+                  />
                   <CardContent sx={{ pb: "0 !important", px: 0 }}>
                     <Typography
                       variant="h5"

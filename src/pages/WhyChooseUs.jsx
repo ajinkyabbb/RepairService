@@ -3,15 +3,15 @@ import { Grid, Typography, Card, CardContent, Box } from "@mui/material";
 import { AiOutlineForm } from "react-icons/ai";
 import { MdVerifiedUser, MdOutlineLocationOn } from "react-icons/md";
 import { motion } from "framer-motion"; // Framer Motion for advanced animations
-import original_parts from "../assets/images/Engineer.png";
-import Skilled_Certified_Technicians from "../assets/images/Skilled_Certified_Technicians.jpg";
-import picup from "../assets/images/Pickup.png";
-import Delivery from "../assets/images/Delivery.jpg";
-import Quality_Parts_Warranty from "../assets/images/Quality_Parts_Warranty.jpg";
-import Wallet from "../assets/images/Wallet.png";
+import original_parts from "../assets/images/Engineer.webp";
+import Skilled_Certified_Technicians from "../assets/images/Skilled_Certified_Technicians.webp";
+import picup from "../assets/images/Pickup.webp";
+import Delivery from "../assets/images/Delivery.webp";
+import Quality_Parts_Warranty from "../assets/images/Quality_Parts_Warranty.webp";
+import Wallet from "../assets/images/Wallet.webp";
 import Product_teardown from "../assets/images/Product_teardown.png";
-import Review from "../assets/images/Review.png";
-import Reputation from "../assets/images/Reputation.png";
+import Review from "../assets/images/Review.webp";
+import Reputation from "../assets/images/Reputation.webp";
 
 // Services data without JSX
 const services = [
@@ -155,7 +155,7 @@ const ServicesGrid = () => {
       sx={{
         // maxWidth: "1440px",
         margin: "0 auto",
-        padding: 4,
+        padding: {xs: "0", sm:4},
         background: "#fff",
         // backdropFilter: "blur(20px)",
         // borderRadius: "24px",

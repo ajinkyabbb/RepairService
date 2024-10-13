@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Typography, Box } from '@mui/material';
 import { styled } from '@mui/system';
 import { motion, useViewportScroll, useTransform } from 'framer-motion';
-import RepairBussiness from "../assets/images/RepairBussiness.jpg"; // Replace with actual image path
+import RepairBussiness from "../assets/images/RepairBussiness.webp"; // Replace with actual image path
 
 // Overlay styling for the background image
 const Overlay = styled(Box)(({ theme }) => ({
@@ -27,9 +27,10 @@ const AppleRepairSection = () => {
 
   return (
     <Box
-      component="section"
+      component="div"
       sx={{
-        position: 'relative',
+        pt:5,
+        // position: 'relative',
         height: '100vh', // Full viewport height for stickiness
         display: 'flex',
         alignItems: 'center',

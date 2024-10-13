@@ -1,33 +1,66 @@
 import React, { useState } from "react";
 import Carousel from "react-material-ui-carousel";
 import { Box, Button, Grid } from "@mui/material";
-import brokenIphone from "../assets/images/brokenIphone.png";
-import brokenIpad from "../assets/images/brokenIpad.png";
+import brokenIphone from "../assets/images/brokenIphone.webp";
+import brokenIpad from "../assets/images/brokenIpad.webp";
 import ScheduleModal from "../components/ScheduleModal";
-
+import brokenMacbook from "../assets/images/brokenMacbook.webp"
 export default function HomePage() {
   const [currentIndex, setCurrentIndex] = useState(0);
 
+  // const items = [
+  //   {
+  //     title: "We repair any device Smartphone, tablets & Gadgets",
+  //     description: [
+  //       "All Cell Phone Repairs",
+  //       "Fast 24*7 Services",
+  //       "Satisfaction Guarantee",
+  //     ],
+  //     image: brokenIphone, // Replace with actual image path
+  //   },
+  //   {
+  //     title: "Specialize in Phone and Tablet Component Replacement",
+  //     description: [
+  //       "All Cell Phone Repairs",
+  //       "Fast 24*7 Services",
+  //       "Satisfaction Guarantee",
+  //     ],
+  //     image: brokenIpad, // Replace with actual image path
+  //   },
+  // ];
   const items = [
     {
-      title: "We repair any device Smartphone, tablets & Gadgets",
+      title: "Expert Repair Services for iPhones and iPads",
       description: [
-        "All Cell Phone Repairs",
-        "Fast 24*7 Services",
-        "Satisfaction Guarantee",
+        "Screen Replacement for All iPhone Models",
+        "Battery Replacement with Original Parts",
+        "Fast and Reliable 24/7 Services",
+        "Satisfaction Guarantee on All Repairs",
       ],
-      image: brokenIphone, // Replace with actual image path
+      image: brokenIphone, // Replace with actual image path for broken iPhone
     },
     {
-      title: "Specialize in Phone and Tablet Component Replacement",
+      title: "Specialized Component Replacement for Apple Devices",
       description: [
-        "All Cell Phone Repairs",
-        "Fast 24*7 Services",
-        "Satisfaction Guarantee",
+        "Camera and Speaker Repairs for iPads",
+        "Water Damage Recovery Services",
+        "Same-Day Repair for Most Issues",
+        "Expert Technicians with Apple Certification",
       ],
-      image: brokenIpad, // Replace with actual image path
+      image: brokenIpad, // Replace with actual image path for broken iPad
+    },
+    {
+      title: "Professional MacBook Repair Services",
+      description: [
+        "Display and Keyboard Replacement",
+        "Battery and Logic Board Repairs",
+        "Data Recovery and Migration Services",
+        "Certified Technicians for High-Quality Repairs",
+      ],
+      image: brokenMacbook, // Replace with actual image path for broken MacBook
     },
   ];
+  
   return (
     <>
       <Box
@@ -51,9 +84,10 @@ export default function HomePage() {
               spacing={2}
               key={index}
               sx={{
+                flexDirection: { xs: "column-reverse", sm: "row" },
                 display: "flex",
                 alignItems: "center",
-                flexWrap: {xs:"wrap",sm:"nowrap"},
+                flexWrap: {xs:"wrap",sm:"nowrap",},
                 // height: { xs: 400, sm: 450, md: 600 }, // Responsive heights for different screen sizes
                 height: "100vh", // Responsive heights for different screen sizes
               }}
@@ -99,7 +133,7 @@ export default function HomePage() {
                     >
                       Schedule Onside Repair
                     </Button>
-                    <Button
+                    {/* <Button
                       variant="contained"
                       sx={{
                         mt: 2,
@@ -110,7 +144,7 @@ export default function HomePage() {
                       href=""
                     >
                       Click to Call Us
-                    </Button>
+                    </Button> */}
                   </div>
                 </div>
               </Grid>
