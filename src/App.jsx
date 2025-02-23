@@ -44,7 +44,7 @@ function App() {
       {repairBusinessSection}
       {/* </div> */}
 
-      <div className="textParallex">
+      {/* <div className="textParallex">
         <ParallaxText baseVelocity={-1}>
           Chat with Us!{" "}
           <img
@@ -73,7 +73,7 @@ function App() {
           />{" "}
           : +91 12345 67890
         </ParallaxText>
-      </div>
+      </div> */}
       {services}
       {whyChooseUs}
       {reviewSection}

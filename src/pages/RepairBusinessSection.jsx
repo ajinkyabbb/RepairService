@@ -3,6 +3,8 @@ import { Button, Typography, Box } from '@mui/material';
 import { styled } from '@mui/system';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import RepairBussiness from "../assets/images/RepairBussiness.webp"; // Replace with actual image path
+import RepairBusinessVideo from "../assets/video/pix.mp4"; // Replace with actual image path
+
 // If using React Router, uncomment the next line
 // import { Link as RouterLink } from 'react-router-dom';
 
@@ -37,6 +39,7 @@ const AppleRepairSection = () => {
   const backgroundY = useTransform(scrollYProgress, [0, 1], [0, 500]); // Moves down faster as you scroll
 
   // Parallax effects for content
+  const videoY = useTransform(scrollYProgress, [0, 1], [0, 500]); // Moves down faster as you scroll
   const y1 = useTransform(scrollYProgress, [0, 1], [0, -100]); // Moves up faster as you scroll
   const y2 = useTransform(scrollYProgress, [0, 1], [0, -60]);
 
@@ -51,7 +54,7 @@ const AppleRepairSection = () => {
       }}
     >
       {/* Background Layer */}
-      <MotionBackground
+      {/* <MotionBackground
         sx={{
           position: 'absolute',
           top: '-50%', // Start above to accommodate movement
@@ -66,7 +69,44 @@ const AppleRepairSection = () => {
         style={{
           y: backgroundY, // Apply animated y position
         }}
-      />
+      /> */}
+       <MotionBackground
+        sx={{
+          position: 'absolute',
+          top: '-50%', // Start above to accommodate movement
+          left: 0,
+          width: '100%',
+          height: "150%", // Increased height to allow movement without showing empty space
+          backgroundImage: `url(${RepairBussiness})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          zIndex: 1, // Behind the overlay
+        }}
+        style={{
+          // position: 'absolute',
+          // top: 0,
+          // left: 0,
+          // width: '100%',
+          // height: '100%',
+          // overflow: 'hidden',
+          y: videoY, // Apply animated y position
+        }}
+      >
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          style={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+          }}
+        >
+          <source src={RepairBusinessVideo} type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      </MotionBackground>
 
       {/* Dark Overlay */}
       <Overlay>
